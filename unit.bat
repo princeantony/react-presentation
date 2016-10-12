@@ -1,8 +1,12 @@
-"E:\TestCoverage\Testing\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe" ^
--target:"C:\Program Files\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe" ^
--targetargs:"/testcontainer:E:\TestCoverage\Testing\UnitTestProject1\bin\Debug\UnitTestProject1.dll /resultsfile:\"D:\Result\testResultNew.trx\"" ^
--filter:"+[*]* ^
--output:"D:\Result\Report.xml"
-"E:\TestCoverage\Testing\packages\ReportGenerator.2.4.5.0\tools\ReportGenerator.exe" ^
--reports:"D:\Result\Report.xml" ^
--targetdir:"D:\Result\ReportOutput" 
+"%~dp0\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe" ^
+-register:user ^
+-target:"%VS120COMNTOOLS%\..\IDE\mstest.exe" ^
+-targetargs:"/testcontainer:\"%~dp0\UnitTestProject1\bin\Debug\UnitTestProject1.dll\" /resultsfile:\"%~dp0UnitTestProject1.trx\" " ^
+-output:"%~dp0\GeneratedReports\UnitTestProject1.xml"
+
+"%~dp0\packages\ReportGenerator.2.4.5.0\tools\ReportGenerator.exe" ^
+-reports:"%~dp0\GeneratedReports\UnitTestProject1.xml" ^
+-targetdir:"%~dp0\GeneratedReports\ReportGenerator"
+
+@echo off
+pause
