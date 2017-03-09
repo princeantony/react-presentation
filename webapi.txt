@@ -1,0 +1,45 @@
+global.asa
+ protected void Application_Start()
+        {
+            log4net.Config.XmlConfigurator.Configure();
+            var boot = new Bootstrapper();
+            boot.ConfigureStructureMap();
+
+            HttpConfiguration config = GlobalConfiguration.Configuration;
+            config.Services.Replace(typeof(IHttpControllerActivator), new StructureMapHttpControllerActivator(config));
+
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+
+            JsonSerializerSettings jsonSettings = GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings;
+            jsonSettings.TypeNameHandling = TypeNameHandling.All;
+        }
+
+------------------
+in appsatrt
+ public static class WebApiConfig
+    {
+        public static void Register(HttpConfiguration config)
+        {         
+
+            // Web API configuration and services
+
+            // Web API routes
+            config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+
+
+            var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+
+            config.Filters.Add(new WebApiExceptionHandlerAttribute());
+        }
+    }   
+
