@@ -1,0 +1,193 @@
+app1.js
+-------
+import 'babel-polyfill';
+import React from 'react';
+import ReactDOM from "react-dom";
+import RootApp from './routers/root-app1';
+
+ReactDOM.render(
+        <RootApp />,
+    document.getElementById('root')
+);
+
+=========================
+app2.js
+import 'babel-polyfill';
+import React from 'react';
+import ReactDOM from "react-dom";
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import allReducers from './reducers/all-reducers2';
+import RootApp from './routers/root-app2';
+
+const store = createStore(
+    allReducers
+);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <RootApp />
+    </Provider>,
+    document.getElementById('root')
+);
+============================
+create-tod1.js
+----------
+import React, {Component} from 'react';
+import TodoList from './todo-list';
+class CreateToDo extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {items: []};
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    var newItem = {
+      task: this.refs.txtTask.value,
+      id: Date.now()
+    };
+    this.setState((prevState) => ({
+      items: prevState.items.concat(newItem)
+    }));
+    this.refs.txtTask.value = '';
+  }
+  render() {
+    return (
+      <div>
+        <h3>TODO</h3>
+        <TodoList items={this.state.items} />
+        <form onSubmit={this.handleSubmit}>
+          <input ref="txtTask" type="text" />
+          <button>{'Add #' + (this.state.items.length + 1)}</button>
+        </form>
+      </div>
+    );
+  }
+
+
+}
+export default CreateToDo 
+=============================
+create-todo2.js
+import React, {Component} from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import TodoList from './todo-list';
+
+class CreateToDo extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {items: this.props.todos};
+  }
+
+   handleSubmit(e) {
+    e.preventDefault();
+    var newItem = {
+      task: this.refs.txtTask.value,
+      id: Date.now()
+    };
+    this.setState((prevState) => ({
+      items: prevState.items.concat(newItem)
+    }));
+    this.refs.txtTask.value = '';
+  }
+
+   render() {
+    return (
+      <div>
+        <h3>TODO</h3>
+        <TodoList items={this.state.items} />
+        <form onSubmit={this.handleSubmit}>
+          <input ref="txtTask" type="text" />
+          <button>{'Add #' + (this.state.items.length + 1)}</button>
+        </form>
+      </div>
+    );
+  }
+
+
+}
+function mapStateToProps(state) {
+    return {
+        todos: state.initial
+    };
+}
+export default connect(mapStateToProps)(CreateToDo);
+====================
+showall1.js
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
+const todos = [
+        {
+            id: 1,
+            task: 'Build and Release activity'
+        },
+        {
+            id: 2,
+            task: 'Team meeting'    
+        }  
+    ]
+class ShowAllToDos extends Component {
+    renderList() {
+        return todos.map((todo) => {
+            return (
+                <li key={todo.id}>
+                    {todo.task}
+                </li>
+            );
+        });
+    }
+
+    render() {
+        return (
+            <ul>
+                {this.renderList()}
+            </ul>
+        );
+    }
+
+}
+
+export default ShowAllToDos;
+
+====================
+showall2.js
+---------------
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
+import {connect} from 'react-redux';
+
+class ShowAllToDos extends Component {
+    renderDefaultTodo() {
+        return this.props.todosDefault.map((todo) => {
+            return (
+                <li key={todo.id}>
+                    {todo.task}
+                </li>
+         );
+        });
+    }
+    render() {
+        return (
+            <div>
+                <ul>
+                    {this.renderDefaultTodo()}
+                </ul>
+                
+            </div>
+        );
+    }
+
+}
+
+function mapStateToProps(state) {
+    return {
+        todosDefault: state.initial
+    };
+}
+
+export default connect(mapStateToProps)(ShowAllToDos);
+
+
