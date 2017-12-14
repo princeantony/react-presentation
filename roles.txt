@@ -1,15 +1,23 @@
-Project Planning and Execution
-Task Estimation
-Manage team workload
-Business Review and support
-Data Quality and Process Improvement
-Requirement , Risk and Root cause analysis
-Target oriented and innovative 
-Preparation for the business scenarios
-Good Grasping capability
-Team Management, Motivates, coaches, helps and works effectively with team to achieve goals
-Understands business/technical Requirements specification, builds domain knowledge.
-Understands technology and industry. Brings in innovative ideas and applies them to add value.
-Actively participates in the continuous improvement of software development process; performs root cause analysis, identifies problem areas, and makes recommendations for improvement
-Task management ensures on time delivery
-Understands dependencies and how individual contributions impact larger vision picture
+
+For first page
+================================================================
+	Project Planning and Execution
+	Task Estimation
+	Manage team workload
+	Business Review and support
+	Data Quality and Process Improvement
+	Target oriented and innovative 
+	Preparation for the business scenarios
+	Good Grasping capability
+	Team Management, Motivates, coaches, helps and works effectively with team to achieve goals
+	Understands business/technical Requirements specification, builds domain knowledge.
+	Understands technology and industry. Brings in innovative ideas and applies them to add value.
+	Actively participates in the continuous improvement of software development process; performs root cause analysis, identifies problem areas, and makes recommendations for improvement
+	Task management ensures on time delivery
+	Understands dependencies and how individual contributions impact larger vision picture
+
+Domain Knowledge 
+Please mentions domain knowledge here. You can pick it from each projects
+Project duration and url
+I think, it will be good if you can provide project duration and the live URL – if its not there you can mentioned it is an intranet application
+
